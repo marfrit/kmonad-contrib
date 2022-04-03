@@ -1,0 +1,92 @@
+#| --------------------------------------------------------------------------
+#|  output (uinput-sink "KMonad output"
+#|    "/bin/sleep 1 && /bin/setxkbmap us -option compose:ralt")
+
+                         KMonad: US ansi 100% template
+
+  This file contains the `defsrc` configuration for a standard US-ansi 100%
+  keyboard. Modelled on a standard DAS-keyboard 100%. Copy out the 'defsrc'
+  layer to start your own keyboard configuration. Copy out the `deflayer`
+  template to easily start a new layer with matching `transparent` buttons.
+
+(deflayer name
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
+  _    _    _              _              _    _    _    _               _    _    _     _    _   
+)
+
+  -------------------------------------------------------------------------- |#
+
+(defcfg
+  input (device-file "/dev/input/by-id/usb-Pine64_Pinebook_Pro_ISO_0.1-event-kbd")
+  output (uinput-sink "KMonad output")
+  fallthrough true
+  allow-cmd true
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
+  lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght  kp0  kp.
+)
+
+(defalias
+ cpy C-c
+ pst C-v
+ cut C-x 
+ und C-z
+
+ lwa (tap-hold 160 h lmet)
+ las (tap-hold 160 i lalt)
+ lcd (tap-hold 160 e lctl)
+ lsf (tap-hold 160 a lsft)
+ rax (tap-hold 160 y ralt)
+
+ rsj (tap-hold 160 t rsft)
+ rck (tap-hold 160 r rctl)
+ lal (tap-hold 160 n lalt)
+ rws (tap-hold 160 s rmet)
+ rad (tap-hold 160 m ralt)
+
+ ly1 (layer-toggle layer1)
+ ly2 (layer-toggle layer2)
+ 
+ lcm (tap-hold 160 , @ly1)
+ rp  (tap-hold 160 p @ly1)
+ lsl (tap-hold 160 / @ly2)
+ rb  (tap-hold 160 b @ly2)
+
+)
+
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    k    u    q    .    j    v    g    c    l    f    _    _    _     _    _    _     _    _    _    _
+  lctl h    @las @lcd @lsf o    d    @rsj @rck @lal s    _    _                          _    _    _
+  _    _    x    @rax ;    @lcm @lsl @rb  @rp  w    @rad z    _               _          _    _    _    _
+  caps _    _              _              _    _    _    _               _    _    _     _    _
+)
+
+(deflayer layer1
+  _    @use @pwe @usg @pwg _    _    _    _    _    _    _    _          _    _    _
+  _    ä    ö    ü    ß    €    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    @    \_   [    ]    ^    !    <    >    =    &    _    _    _     _    _    _     _    _    _    _
+  _    \    /    {    }    *    ?    \(   \)   -    :    @    _                          _    _    _
+  _    _    #    $    |    ~    `    +    %    "    '    ;    _               _          _    _    _    _
+  _    _    _              _              _    _    _    _               _    _    _     _    _   
+)
+
+(deflayer layer2
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    esc  7    8    9    _    home pgup up   pgdn bspc _    _    _     _    _    _     _    _    _    _
+  _    tab  4    5    6    _    end  left down rght ret  _    _                          _    _    _
+  _    _    caps 1    2    3    0    @und @cut @pst del  _    _              _          _    _    _    _
+  _    _    _              _              _    _    _    _               _    _    _     _    _   
+)
